@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
@@ -33,13 +34,21 @@ const Signup = () => {
             .then(result => {
                 updateUser(name)
                     .then(() => {
-                        
+                        saveUser(name, email, accountType);
                     });
             })
             .catch(err => {
                 if (err.code === 'auth/email-already-in-use') {
                     setError('Email Already Used');
                 };
+            })
+    };
+
+    const saveUser = (name, email, accountType) => {
+        const user = { name, email, accountType };
+        axios.post('http://localhost:5000/users', user)
+            .then(result => {
+                console.log(result);
             })
     };
 
