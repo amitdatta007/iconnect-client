@@ -5,33 +5,39 @@ import { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
+import useToken from '../../Hooks/useToken';
 
 const Signup = () => {
     const { register, handleSubmit } = useForm();
     const { createUser, googleLogin, updateUser } = useContext(AuthContext);
     const [error, setError] = useState(null);
+    const [userEmail, setUserEmail] = useState('');
+    const [accType, setAccType] = useState('buyer')
+    const [token] = useToken(userEmail);
+
+    if(token){
+        console.log('success');
+    }
 
     const handleSignUp = data => {
-        const { name, email, password, confirmPassword, accountType, agree } = data;
         setError(null);
-
+        const { name, email, password, confirmPassword, accountType, agree } = data;
+    
         if (password.length < 6) {
             setError('Password Must Be 6 Character or More');
             return;
         };
-
         if (password !== confirmPassword) {
             setError('Password Does Not Match');
             return;
         };
-
         if (!agree) {
             setError('Accept Terms and Privary');
             return;
         };
 
         createUser(email, password)
-            .then(result => {
+            .then(() => {
                 updateUser(name)
                     .then(() => {
                         saveUser(name, email, accountType);
@@ -41,25 +47,31 @@ const Signup = () => {
                 if (err.code === 'auth/email-already-in-use') {
                     setError('Email Already Used');
                 };
-            })
+            });
     };
 
     const saveUser = (name, email, accountType) => {
         const user = { name, email, accountType };
         axios.post('http://localhost:5000/users', user)
-            .then(result => {
-                console.log(result);
-            })
+            .then(() => {
+                setUserEmail(email);
+            });
     };
 
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
-                console.log(result.user)
+                const {displayName, email} = result.user;
+                saveUser(displayName, email, accType);
             })
             .catch(err => {
                 console.log(err)
-            })
+            });
+    };
+
+    const handleAccountType = e => {
+        const acc = e.target.value;
+        setAccType(acc);
     };
 
     return (
@@ -71,7 +83,7 @@ const Signup = () => {
                     <input type="email" placeholder="Email Address" className="input input-primary input-bordered w-full focus:outline-none" {...register("email")} required />
                     <input type="password" placeholder="Password" className="input input-primary input-bordered w-full focus:outline-none" {...register("password")} required />
                     <input type="password" placeholder="Confirm Password" className="input input-primary input-bordered w-full focus:outline-none" {...register("confirmPassword")} required />
-                    <select {...register('AccountType')} className="select select-primary w-full focus:outline-none" required>
+                    <select {...register('AccountType')} onBlur={handleAccountType} className="select select-primary w-full focus:outline-none" required>
                         <option value='buyer'>Buyer Account</option>
                         <option value='seller'>Seller Account</option>
                     </select>

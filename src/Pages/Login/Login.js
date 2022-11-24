@@ -4,11 +4,19 @@ import { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
+import useToken from '../../Hooks/useToken';
+import axios from 'axios';
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
     const { loginUser, googleLogin } = useContext(AuthContext);
     const [error, setError] = useState(null);
+    const [userEmail, setUserEmail] = useState('');
+    const [token] = useToken(userEmail);
+
+    if(token){
+        console.log('success')
+    };
 
     const handleSignin = data => {
         setError(null);
@@ -19,8 +27,8 @@ const Login = () => {
             return;
         };
         loginUser(email, password)
-            .then(result => {
-                console.log(result.user)
+            .then(() => {
+                setUserEmail(email);
             })
             .catch(err => {
                 if (err.code === 'auth/user-not-found') {
@@ -33,10 +41,20 @@ const Login = () => {
             });
     };
 
+    const saveUser = (name, email, accountType) => {
+        const user = { name, email, accountType };
+        axios.post('http://localhost:5000/users', user)
+            .then(() => {
+                setUserEmail(email);
+            });
+    };
+
+
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
-                console.log(result.user)
+                const {displayName, email} = result.user;
+                saveUser(displayName, email, 'buyer');
             })
             .catch(err => {
                 console.log(err)

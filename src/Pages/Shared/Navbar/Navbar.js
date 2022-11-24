@@ -1,10 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import useToken from '../../../Hooks/useToken';
 import NavItem from '../NavItem/NavItem';
 
 const Navbar = () => {
-    const {user} = useContext(AuthContext);
+    const {user, logout} = useContext(AuthContext);
+    const [userEmail, setUserEmail] = useState('');
+    
+    useEffect(() => {
+        setUserEmail(user?.email || '')
+    }, [user]);
+
+    const [token] = useToken(userEmail);
+
+
+
+    const handleSignOut = () => {
+        logout().then(() => {
+            setUserEmail('');
+            localStorage.removeItem('accessToken');
+        });
+    };
 
     return (
         <nav className='flex justify-between items-center h-16'>
@@ -19,9 +36,8 @@ const Navbar = () => {
                 <NavItem name='Blog' path='/blog' />
             </div>
             <div>
-                login
                 {
-                    user && <p>{user.email}</p>
+                    user?.uid ? <button onClick={handleSignOut} className='btn'>Sign Out</button> : <Link className='btn' to='/login'>Sign In</Link>
                 }
             </div>
         </nav>
