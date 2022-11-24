@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="w-[98%] max-w-[1280px] bg-red-300 mx-auto">
+    <div className="w-[98%] max-w-[1280px] mx-auto">
       <RouterProvider router={router} />
     </div>
   );
