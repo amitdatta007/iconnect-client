@@ -16,10 +16,10 @@ const Navbar = () => {
 
     useEffect(() => {
         if (isDarkMode) {
-            document.querySelector('html').setAttribute('data-theme', 'night');
+            document.querySelector('html').setAttribute('data-theme', 'dracula');
             localStorage.setItem('isDarkMode', true);
         } else {
-            document.querySelector('html').setAttribute('data-theme', 'winter');
+            document.querySelector('html').setAttribute('data-theme', 'emerald');
             localStorage.removeItem('isDarkMode');
         }
     }, [isDarkMode]);
