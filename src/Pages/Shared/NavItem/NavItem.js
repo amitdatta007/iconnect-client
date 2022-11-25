@@ -4,7 +4,7 @@ import './NavItem.css';
 
 const NavItem = ({path, name}) => {
     return (
-        <NavLink to={path} className={`${(isActive) => isActive ? 'active' : null} font-semibold hover:text-primary`}>{name}</NavLink>
+        <NavLink to={path} className={`${(isActive) => isActive ? 'active' : null} font-medium hover:text-primary`}>{name}</NavLink>
     );
 };
 
