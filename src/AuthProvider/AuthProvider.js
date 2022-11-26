@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth';
 import app from '../Firebase/firebase.config';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -46,6 +48,8 @@ const AuthProvider = ({children}) => {
     };
 
 
+    
+
     // user observer
 
     useEffect(() => {
@@ -56,6 +60,19 @@ const AuthProvider = ({children}) => {
         return () => unsubscribe();
     }, []);
 
+    const { data: userInfo = {}, refetch:updateRole} = useQuery({
+        queryKey: ["userInfo", user],
+        queryFn: () => axios(`http://localhost:5000/user?email=${user?.email}`, {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(result => result.data)
+    });
+
+    
+
+    
+
     const value = {
         user,
         createUser,
@@ -63,7 +80,9 @@ const AuthProvider = ({children}) => {
         loginUser,
         updateUser,
         logout,
-        loading
+        loading,
+        userInfo,
+        updateRole
     };
 
     return (

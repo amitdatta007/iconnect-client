@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
@@ -7,18 +5,11 @@ import Navbar from '../Pages/Shared/Navbar/Navbar';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 const DashboardLayout = () => {
-    const { user } = useContext(AuthContext);
+    const { userInfo, updateRole } = useContext(AuthContext);
 
-    const { data: userInfo = {} } = useQuery({
-        queryKey: ["userInfo", user],
-        queryFn: () => axios(`http://localhost:5000/user?email=${user?.email}`, {
-            headers: {
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
-            }
-        }).then(result => result.data)
-    });
+    updateRole();
 
-    console.log(userInfo)
+    
 
     return (
         <div>
@@ -27,12 +18,11 @@ const DashboardLayout = () => {
 
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-                <div className="drawer-content bg-base-200 p-4 flex flex-col gap-4 items-start">
+                <div className="drawer-content bg-primary bg-opacity-50 p-4 flex flex-col gap-4 items-start">
                     <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
                         <HiMenu className='swap-off fill-current h-12 w-12' />
                     </label>
-                    <div className='w-full bg-red-400'>
-                        fdsjkjf
+                    <div className='w-full'>
                         <Outlet />
                     </div>
                 </div>
@@ -44,14 +34,18 @@ const DashboardLayout = () => {
                         </label>
                         {
                             userInfo.accountType === "admin" && <>
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard'>All Sellers</NavLink>
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>All Buyers</NavLink>
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>All Sellers</NavLink>
+
+
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/allbuyers' >All Buyers</NavLink>
+
+
                                 <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>Reported Items</NavLink>
                             </>
                         }
                         {
                             userInfo.accountType === "seller" && <>
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard'>Add A product</NavLink>
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>Add A product</NavLink>
 
                                 <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>My Products</NavLink>
                             </>

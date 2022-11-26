@@ -27,8 +27,9 @@ const Login = () => {
             return;
         };
         loginUser(email, password)
-            .then(() => {
-                setUserEmail(email);
+            .then(result => {
+                const {displayName, email} = result.user;
+                saveUser(displayName, email, 'buyer');
             })
             .catch(err => {
                 if (err.code === 'auth/user-not-found') {
