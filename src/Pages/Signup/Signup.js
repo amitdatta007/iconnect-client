@@ -21,7 +21,7 @@ const Signup = () => {
 
     const handleSignUp = data => {
         setError(null);
-        const { name, email, password, confirmPassword, accountType, agree } = data;
+        const { name, email, password, confirmPassword, agree } = data;
     
         if (password.length < 6) {
             setError('Password Must Be 6 Character or More');
@@ -40,7 +40,7 @@ const Signup = () => {
             .then(() => {
                 updateUser(name)
                     .then(() => {
-                        saveUser(name, email, accountType);
+                        saveUser(name, email, accType);
                     });
             })
             .catch(err => {
