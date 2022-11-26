@@ -34,7 +34,7 @@ const DashboardLayout = () => {
                         </label>
                         {
                             userInfo.accountType === "admin" && <>
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>All Sellers</NavLink>
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/allsellers'>All Sellers</NavLink>
 
 
                                 <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/allbuyers' >All Buyers</NavLink>

@@ -1,26 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { confirmAlert } from 'react-confirm-alert';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
-const AllBuyers = () => {
-
+const AllSellers = () => {
     const { userInfo } = useContext(AuthContext);
 
-
-
-    const { data: allBuyers = [], refetch } = useQuery({
-        queryKey: ['allBuyers', userInfo],
-        queryFn: () => axios(`http://localhost:5000/buyers?email=${userInfo.email}`, {
+    const { data: allSellers = [], refetch } = useQuery({
+        queryKey: ['allSellers', userInfo],
+        queryFn: () => axios(`http://localhost:5000/sellers?email=${userInfo.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         }).then(result => result.data)
     });
 
-    const handleRemoveBuyer = email => {
+    const handleRemoveSeller = email => {
 
         confirmAlert({
             title: 'Confirm Delete',
@@ -32,7 +29,6 @@ const AllBuyers = () => {
                             refetch();
                             toast.success('Successfully Deleted');
                         });
-
                     }
                 },
                 {
@@ -42,10 +38,7 @@ const AllBuyers = () => {
             ]
         });
 
-
-    };
-
-
+    }
 
     return (
         <div className='p-4'>
@@ -61,11 +54,11 @@ const AllBuyers = () => {
                     </thead>
                     <tbody>
                         {
-                            allBuyers.map((buyer, i) => <tr key={i}>
+                            allSellers.map((seller, i) => <tr key={i}>
                                 <th>{i + 1}</th>
-                                <td>{buyer.name}</td>
-                                <td>{buyer.email}</td>
-                                <td><button className='btn btn-primary text-base-200' onClick={() => handleRemoveBuyer(buyer?.email)}>Remove</button></td>
+                                <td>{seller.name}</td>
+                                <td>{seller.email}</td>
+                                <td><button className='btn btn-primary text-base-200' onClick={() => handleRemoveSeller(seller?.email)}>Remove</button></td>
                             </tr>)
                         }
                     </tbody>
@@ -75,4 +68,4 @@ const AllBuyers = () => {
     );
 };
 
-export default AllBuyers;
+export default AllSellers;
