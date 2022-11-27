@@ -51,7 +51,7 @@ const Signup = () => {
     };
 
     const saveUser = (name, email, accountType) => {
-        const user = { name, email, accountType };
+        const user = { name, email, accountType, isVarified: false };
         axios.post('http://localhost:5000/users', user)
             .then(() => {
                 setUserEmail(email);

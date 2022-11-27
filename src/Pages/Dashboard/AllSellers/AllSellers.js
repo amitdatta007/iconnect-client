@@ -38,7 +38,31 @@ const AllSellers = () => {
             ]
         });
 
-    }
+    };
+
+    const handleVerify = seller => {
+        confirmAlert({
+            title: 'Varify User?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        seller.isVarified = true;
+                        axios.put(`http://localhost:5000/user`, seller).then(() => {
+                            refetch();
+                            toast.success('Seller Varified');
+                        });
+                        refetch();
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => { }
+                }
+            ]
+        });
+        
+    };
 
     return (
         <div className='p-4'>
@@ -50,6 +74,7 @@ const AllSellers = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +83,13 @@ const AllSellers = () => {
                                 <th>{i + 1}</th>
                                 <td>{seller.name}</td>
                                 <td>{seller.email}</td>
+                                <td>
+                                    <button disabled={seller?.isVarified ? true : false} className='btn btn-primary text-base-200' onClick={() => handleVerify(seller)}>
+                                        {
+                                            seller?.isVarified ? 'Varified' : 'Verify Seller'
+                                        }
+                                    </button>
+                                </td>
                                 <td><button className='btn btn-primary text-base-200' onClick={() => handleRemoveSeller(seller?.email)}>Remove</button></td>
                             </tr>)
                         }
