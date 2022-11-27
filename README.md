@@ -1,3 +1,42 @@
+# iConnect - Used Mobile Phone Buy and selling website
+## live Link: 
+
+# admin
+
+
+## Features
+- Home page with advertised Phones and 3 catagories
+- catagory page have some used Product based on catagory
+- can Buy Phone and sell phone
+- create 2 type of account buyer or seller
+- buyer can buy Product and seller can sell Product
+- dashboard based on user
+- admin dashboard
+- admin can remove buyer or seller and verify seller
+- seller can see all of his/her product and can delete or advertised product
+- theme toggle
+- firebase Authentication
+- complete responsive web site
+
+
+## Technology
+- React js
+- React Router
+- Firebase
+- React Query
+- Axios
+- Tailwind css
+- Daisy ui
+- React icons
+- React hot toast
+- react hook form
+- react confirm alert
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
