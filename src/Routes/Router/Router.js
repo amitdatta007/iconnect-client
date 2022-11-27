@@ -23,7 +23,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/catagory/:id',
-                element: <Products />,
+                element: <PrivateRoute><Products /></PrivateRoute>,
                 loader: ({params}) => axios(`http://localhost:5000/products/${params.id}`)
             }
         ]

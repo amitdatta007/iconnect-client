@@ -1,13 +1,34 @@
-import React from 'react';
+import { format } from 'date-fns';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 
 const AddProducts = () => {
     const { register, handleSubmit } = useForm();
+    const { userInfo } = useContext(AuthContext);
+    const { email, name } = userInfo;
+    const [img, setImg] = useState('');
+
+    const handleImg = e => {
+        setImg(e.target.files[0]);
+    };
 
     const handleAddProduct = data => {
-        console.log(data)
-    }
+        const formData = new FormData();
+            formData.append('image', img)
+            axios.post("https://api.imgbb.com/1/upload?expiration=600&key=cb8e6bc041dace217a81b24c743501f9", formData).then(res => {
+                const date = format(new Date(), "PP");
+                const product = { ...data, date, sellerEmail: email, sellerName: name, img: res.data.data.display_url, isAvaiable: true };
+                axios.post(`http://localhost:5000/product`, product).then(res => {
+                    if(res.data.acknowledged){
+                        toast.success('Successfully Added');
+                    }
+                });
+            });
+    };
 
     return (
         <div className='flex justify-center items-center flex-col'>
@@ -24,6 +45,8 @@ const AddProducts = () => {
                         <option value='Fair'>Fair</option>
                     </select>
 
+                    <input onChange={handleImg} name='files' type="file" className="file-input file-input-bordered file-input-primary w-full focus:outline-none" required />
+
                     <select {...register('catagoryId')} className="select select-primary w-full focus:outline-none" placeholder='Choose Tpye of Your Phone' required>
                         <option value='101'>Basic Phone</option>
                         <option value='102'>Smart Phone</option>
@@ -38,8 +61,8 @@ const AddProducts = () => {
 
                     <input type="text" placeholder="Address" className="input input-primary input-bordered w-full focus:outline-none" {...register("sellerAddress")} required />
 
-                
-                    
+
+
                     <input className='btn' type="submit" />
                 </form>
             </div>
