@@ -10,6 +10,7 @@ import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import NotFound from "../../Pages/NotFound/NotFound";
 import Products from "../../Pages/Products/Products/Products";
 import Signup from "../../Pages/Signup/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
                 element: <MyProducts />
             }
         ]
+    },
+    {
+        path: '/*',
+        element: <NotFound />
     }
 
 ]);
