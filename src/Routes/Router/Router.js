@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AuthLayout from "../../Layout/AuthLayout";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
+import Blog from "../../Pages/Blog/Blog";
 import AddProducts from "../../Pages/Dashboard/AddProducts/AddProducts";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
                 path: '/catagory/:id',
                 element: <PrivateRoute><Products /></PrivateRoute>,
                 loader: ({params}) => axios(`http://localhost:5000/products/${params.id}`)
+            },
+            {
+                path: '/blog',
+                element: <Blog />
             }
         ]
     },
