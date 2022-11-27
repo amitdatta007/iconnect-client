@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 const AddProducts = () => {
     const { register, handleSubmit } = useForm();
     const { userInfo } = useContext(AuthContext);
-    const { email, name } = userInfo;
+    const { email, name, isVarified } = userInfo;
     const [img, setImg] = useState('');
 
     const handleImg = e => {
@@ -21,7 +21,7 @@ const AddProducts = () => {
             formData.append('image', img)
             axios.post("https://api.imgbb.com/1/upload?expiration=600&key=cb8e6bc041dace217a81b24c743501f9", formData).then(res => {
                 const date = format(new Date(), "PP");
-                const product = { ...data, date, sellerEmail: email, sellerName: name, img: res.data.data.display_url, isAvaiable: true };
+                const product = { ...data, date, sellerEmail: email, sellerName: name, img: res.data.data.display_url, isAvaiable: true, sellerVerified:isVarified };
                 axios.post(`http://localhost:5000/product`, product).then(res => {
                     if(res.data.acknowledged){
                         toast.success('Successfully Added');
@@ -55,7 +55,8 @@ const AddProducts = () => {
 
                     <textarea {...register("description")} className="textarea textarea-primary resize-none h-20 focus:outline-none" placeholder="Phone Description"></textarea>
 
-                    <input type="number" placeholder="Price (bdt)" className="input input-primary input-bordered w-full focus:outline-none" {...register("price")} required />
+                    <input type="number" placeholder="Resell Price (bdt)" className="input input-primary input-bordered w-full focus:outline-none" {...register("resellPrice")} required />
+                    <input type="number" placeholder="Original Price (bdt)" className="input input-primary input-bordered w-full focus:outline-none" {...register("originalPrice")} required />
 
                     <input type="number" placeholder="contact Number)" className="input input-primary input-bordered w-full focus:outline-none" {...register("sellerPhone")} required />
 

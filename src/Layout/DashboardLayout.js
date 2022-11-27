@@ -47,7 +47,7 @@ const DashboardLayout = () => {
                             userInfo.accountType === "seller" && <>
                                 <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/addproduct'>Add A product</NavLink>
 
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>My Products</NavLink>
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/myproduct'>My Products</NavLink>
                             </>
                         }
                         {
