@@ -17,7 +17,7 @@ const SingleProduct = ({ product, setItem }) => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.post(`http://localhost:5000/report`, product).then(() => {
+                        axios.post(`https://iconnect-server.vercel.app/report`, product).then(() => {
                             toast.success('Successfully Reported');
                         });
                     }

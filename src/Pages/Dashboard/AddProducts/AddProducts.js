@@ -25,7 +25,7 @@ const AddProducts = () => {
             axios.post("https://api.imgbb.com/1/upload?expiration=600&key=cb8e6bc041dace217a81b24c743501f9", formData).then(res => {
                 const date = format(new Date(), "PP");
                 const product = { ...data, date, sellerEmail: email, sellerName: name, img: res.data.data.display_url, isAvaiable: true, sellerVerified:isVarified };
-                axios.post(`http://localhost:5000/product`, product).then(res => {
+                axios.post(`https://iconnect-server.vercel.app/product`, product).then(res => {
                     if(res.data.acknowledged){
                         toast.success('Successfully Added');
                         navigate('/dashboard/myproduct');

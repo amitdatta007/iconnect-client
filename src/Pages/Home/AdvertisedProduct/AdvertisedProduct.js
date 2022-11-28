@@ -7,7 +7,7 @@ const AdvertisedProduct = () => {
 
     const {data: products = [], isLoading} = useQuery({
         queryHash: ['products'],
-        queryFn: () => axios('http://localhost:5000/advertise').then(res => res.data)
+        queryFn: () => axios('https://iconnect-server.vercel.app/advertise').then(res => res.data)
     });
 
     if(isLoading){

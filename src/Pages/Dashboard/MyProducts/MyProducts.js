@@ -10,7 +10,7 @@ const MyProducts = () => {
 
     const {data: myProducts = [], refetch} = useQuery({
         queryKey: ['myProducts', userInfo],
-        queryFn: () => axios(`http://localhost:5000/myproducts?email=${userInfo.email}`, {
+        queryFn: () => axios(`https://iconnect-server.vercel.app/myproducts?email=${userInfo.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -24,7 +24,7 @@ const MyProducts = () => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.post('http://localhost:5000/advertise', product).then(res => {
+                        axios.post('https://iconnect-server.vercel.app/advertise', product).then(res => {
                             if(res.data.acknowledged){
                                 toast.success('Successfully Advertised');
                             } else{
@@ -48,7 +48,7 @@ const MyProducts = () => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.delete(`http://localhost:5000/product?id=${product}`).then(res => {
+                        axios.delete(`https://iconnect-server.vercel.app/product?id=${product}`).then(res => {
                             toast.success('Successfully Deleted');
                             refetch();
                         });

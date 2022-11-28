@@ -10,7 +10,7 @@ const ReportedProducts = () => {
 
     const { data: reportedProducts = [], refetch } = useQuery({
         queryKey: ['reportedProducts', userInfo],
-        queryFn: () => axios(`http://localhost:5000/report?email=${userInfo.email}`, {
+        queryFn: () => axios(`https://iconnect-server.vercel.app/report?email=${userInfo.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -24,8 +24,8 @@ const ReportedProducts = () => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.delete(`http://localhost:5000/product?id=${id}`).then(() => {
-                            axios.delete(`http://localhost:5000/report?id=${id}`).then(() => {
+                        axios.delete(`https://iconnect-server.vercel.app/product?id=${id}`).then(() => {
+                            axios.delete(`https://iconnect-server.vercel.app/report?id=${id}`).then(() => {
                                 refetch();
                                 toast.success('Successfully Deleted');
                             })

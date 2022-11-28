@@ -9,7 +9,7 @@ const MyOrders = () => {
 
     const { data: myOrders = [], refetch } = useQuery({
         queryKey: ['myOrders', userInfo],
-        queryFn: () => axios(`http://localhost:5000/myorders?email=${userInfo.email}`, {
+        queryFn: () => axios(`https://iconnect-server.vercel.app/myorders?email=${userInfo.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

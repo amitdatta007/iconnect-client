@@ -6,7 +6,7 @@ import Catagory from '../Catagory/Catagory';
 const Catogories = () => {
     const { data: catagories = [] } = useQuery({
         queryKey: ["catagories"],
-        queryFn: () => axios('http://localhost:5000/catagories').then(result => result.data)
+        queryFn: () => axios('https://iconnect-server.vercel.app/catagories').then(result => result.data)
     });
 
     return (

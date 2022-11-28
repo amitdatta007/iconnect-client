@@ -27,12 +27,12 @@ const BookingModal = ({item}) => {
             bookedByAddress: address
         };
 
-        axios.post('http://localhost:5000/booking', bookedProduct).then(res => {
+        axios.post('https://iconnect-server.vercel.app/booking', bookedProduct).then(res => {
             if (res.data.acknowledged) {
                 toast.success('Successfully Booked!');
                 const p = { ...item };
                 p.isAvaiable = false;
-                axios.put('http://localhost:5000/product', p).then(() => {
+                axios.put('https://iconnect-server.vercel.app/product', p).then(() => {
                     navigate('/dashboard/myorders')
                 })
             } else {

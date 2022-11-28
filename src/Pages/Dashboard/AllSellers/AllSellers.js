@@ -10,7 +10,7 @@ const AllSellers = () => {
 
     const { data: allSellers = [], refetch } = useQuery({
         queryKey: ['allSellers', userInfo],
-        queryFn: () => axios(`http://localhost:5000/sellers?email=${userInfo.email}`, {
+        queryFn: () => axios(`https://iconnect-server.vercel.app/sellers?email=${userInfo.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -25,7 +25,7 @@ const AllSellers = () => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.delete(`http://localhost:5000/user?email=${email}`).then(() => {
+                        axios.delete(`https://iconnect-server.vercel.app/user?email=${email}`).then(() => {
                             refetch();
                             toast.success('Successfully Deleted');
                         });
@@ -48,7 +48,7 @@ const AllSellers = () => {
                     label: 'Yes',
                     onClick: () => {
                         seller.isVarified = true;
-                        axios.put(`http://localhost:5000/user`, seller).then(() => {
+                        axios.put(`https://iconnect-server.vercel.app/user`, seller).then(() => {
                             refetch();
                             toast.success('Seller Varified');
                         });

@@ -30,7 +30,7 @@ const router = createBrowserRouter([
             {
                 path: '/catagory/:id',
                 element: <PrivateRoute><Products /></PrivateRoute>,
-                loader: ({params}) => axios(`http://localhost:5000/products/${params.id}`)
+                loader: ({params}) => axios(`https://iconnect-server.vercel.app/products/${params.id}`)
             },
             {
                 path: '/blog',
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment />,
-                loader: ({params}) => axios(`http://localhost:5000/booking?id=${params.id}`) 
+                loader: ({params}) => axios(`https://iconnect-server.vercel.app/booking?id=${params.id}`) 
             }
         ]
     },

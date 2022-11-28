@@ -62,7 +62,7 @@ const AuthProvider = ({children}) => {
 
     const { data: userInfo = {}, refetch:updateRole} = useQuery({
         queryKey: ["userInfo", user],
-        queryFn: () => axios(`http://localhost:5000/user?email=${user?.email}`, {
+        queryFn: () => axios(`https://iconnect-server.vercel.app/user?email=${user?.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
