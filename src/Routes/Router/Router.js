@@ -9,6 +9,7 @@ import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
 import ReportedProducts from "../../Pages/Dashboard/ReportedProducts/ReportedProducts";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -79,6 +80,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/reportedProducts',
                 element: <ReportedProducts />
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <Payment />,
+                loader: ({params}) => axios(`http://localhost:5000/booking?id=${params.id}`) 
             }
         ]
     },

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const MyOrders = () => {
     const { userInfo } = useContext(AuthContext);
@@ -37,7 +38,7 @@ const MyOrders = () => {
                                 <td>{`${p.resellPrice} bdt`}</td>
                                 <td>
                                     {
-                                        !p.paid ? <button className='btn btn-primary' >Pay Now</button> : <button className='btn btn-primary' disabled>Paid</button>
+                                        !p.paid ? <Link className='btn btn-primary' to={`/dashboard/payment/${p._id}`} >Pay Now</Link> : <button className='btn btn-primary' disabled>Paid</button>
                                     }
                                 </td>
                             </tr>)

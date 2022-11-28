@@ -1,37 +1,9 @@
-import axios from 'axios';
 import React from 'react';
-import { confirmAlert } from 'react-confirm-alert';
-import toast from 'react-hot-toast';
 import { GoVerified } from 'react-icons/go';
 
-const SingleProduct = ({ product, setItem }) => {
+const ProductOne = ({product}) => {
     const { brand, model, img, originalPrice, resellPrice, sellerVerified, sellerName, sellerEmail, sellerAddress, sellerPhone, description, date, condition
     } = product;
-
-    console.log(sellerVerified)
-
-    const handleReport = product => {
-        confirmAlert({
-            title: 'Confirm Report?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => {
-                        axios.post(`http://localhost:5000/report`, product).then(() => {
-                            toast.success('Successfully Reported');
-                        });
-                    }
-                },
-                {
-                    label: 'No',
-                    onClick: () => { }
-                }
-            ]
-        });
-    }
-
-    
-
     return (
         <div className="card bg-base-100 shadow-xl">
             <figure><img className='w-full h-60' src={img} alt="" /></figure>
@@ -50,15 +22,10 @@ const SingleProduct = ({ product, setItem }) => {
                     <p className='font-semibold'>Email: {sellerEmail} bdt</p>
                     <p className='font-semibold'>Phone: {sellerPhone} bdt</p>
                     <p className='font-semibold'>Address: {sellerAddress} bdt</p>
-                    
-                </div>
-                <div className='flex justify-between'>
-                    <button className='btn btn-outline btn-accent' onClick={() => handleReport(product)}>Report Item</button>
-                    <label onClick={() => setItem(product)} htmlFor="booking-modal" className='btn btn-primary text-base-100' >Book Now</label>
                 </div>
             </div>
         </div>
     );
 };
 
-export default SingleProduct;
+export default ProductOne;

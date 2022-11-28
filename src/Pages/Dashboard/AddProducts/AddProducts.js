@@ -28,7 +28,7 @@ const AddProducts = () => {
                 axios.post(`http://localhost:5000/product`, product).then(res => {
                     if(res.data.acknowledged){
                         toast.success('Successfully Added');
-                        navigate('/dashboard/myproduct')
+                        navigate('/dashboard/myproduct');
                     }
                 });
             });

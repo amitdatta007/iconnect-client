@@ -26,9 +26,9 @@ const MyProducts = () => {
                     onClick: () => {
                         axios.post('http://localhost:5000/advertise', product).then(res => {
                             if(res.data.acknowledged){
-                                toast.success('Successfully ad');
+                                toast.success('Successfully Advertised');
                             } else{
-                                toast.error('Already added');
+                                toast.error('Somthing Wrong. Try again leter.');
                             };
                         });
                     }

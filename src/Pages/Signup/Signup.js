@@ -3,7 +3,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import useToken from '../../Hooks/useToken';
 
@@ -14,6 +15,7 @@ const Signup = () => {
     const [userEmail, setUserEmail] = useState('');
     const [accType, setAccType] = useState('buyer')
     const [token] = useToken(userEmail);
+    const navigate = useNavigate();
 
     if(token){
         console.log('success');
@@ -55,6 +57,8 @@ const Signup = () => {
         axios.post('http://localhost:5000/users', user)
             .then(() => {
                 setUserEmail(email);
+                toast.success('Account Successfully Created');
+                navigate('/');
             });
     };
 
@@ -98,11 +102,11 @@ const Signup = () => {
                             error && <p className='text-center text-white py-1'>{error}</p>
                         }
                     </div>
-                    <input className='btn' type="submit" />
+                    <input className='btn' type="submit" value='Sign up'/>
                 </form>
                 <div className="divider">OR</div>
                 <button className='btn btn-outline' onClick={handleGoogleLogin}>Sign In with Google</button>
-                <p className='text-center text-medium mt-4'>Already Have an Account? <Link className='text-primary' to='/login'>Sign In</Link> </p>
+                <p className='text-center text-medium mt-4'>Already Have an Account? <Link className='text-primary hover:underline' to='/login'>Sign In</Link> </p>
             </div>
         </div>
     );
