@@ -1,7 +1,11 @@
 # iConnect - Used Mobile Phone Buy and selling website
-## live Link: 
+## live Link: https://iconnect-117bd.web.app/
 
 # admin
+
+adminEmail: admin@iconnect.com
+
+adminPassword: admin2345
 
 
 ## Features
@@ -31,6 +35,7 @@
 - React hot toast
 - react hook form
 - react confirm alert
+- Stripe
 
 
 
