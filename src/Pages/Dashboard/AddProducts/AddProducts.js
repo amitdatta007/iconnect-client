@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import {useNavigate} from 'react-router-dom';
 
 
 const AddProducts = () => {
@@ -11,6 +12,8 @@ const AddProducts = () => {
     const { userInfo } = useContext(AuthContext);
     const { email, name, isVarified } = userInfo;
     const [img, setImg] = useState('');
+
+    const navigate = useNavigate();
 
     const handleImg = e => {
         setImg(e.target.files[0]);
@@ -25,6 +28,7 @@ const AddProducts = () => {
                 axios.post(`http://localhost:5000/product`, product).then(res => {
                     if(res.data.acknowledged){
                         toast.success('Successfully Added');
+                        navigate('/dashboard/myproduct')
                     }
                 });
             });

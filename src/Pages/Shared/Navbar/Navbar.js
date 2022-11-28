@@ -8,11 +8,13 @@ import { useScrollLock } from '../../../Hooks/useScrollLock';
 
 const Navbar = () => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout,userInfo, updateRole } = useContext(AuthContext);
     const [userEmail, setUserEmail] = useState('');
     const { lockScroll, unlockScroll } = useScrollLock();
     const darkModeData = localStorage.getItem('isDarkMode') || false;
     const [isDarkMode, setIsDarkMode] = useState(darkModeData);
+
+    updateRole();
 
     useEffect(() => {
         if (isDarkMode) {
@@ -33,7 +35,9 @@ const Navbar = () => {
 
     const [token] = useToken(userEmail);
 
+    if(token) {
 
+    };
 
     const handleSignOut = () => {
         logout().then(() => {
@@ -51,7 +55,15 @@ const Navbar = () => {
                 </h2>
             </Link>
             <div className={`${menuIsOpen ? 'top-0 left-0' : 'top-[-200vh] left-0'} z-10 flex justify-center items-center flex-col md:flex-row absolute md:static w-full h-full md:w-fit md:h-fit bg-base-100 gap-2 md:gap-6 duration-500 ease-in-out md:duration-[0s]`}>
-                <NavItem name='Dashboard' path='/dashboard' />
+                {
+                    userInfo?.accountType === 'admin' && <NavItem name='Dashboard' path='/dashboard/allsellers' />
+                }
+                {
+                    userInfo?.accountType === 'seller' && <NavItem name='Dashboard' path='/dashboard/addproduct' />
+                }
+                {
+                    userInfo?.accountType === 'buyer' && <NavItem name='Dashboard' path='/dashboard/myorders' />
+                }
                 <NavItem name='Blog' path='/blog' />
                 {
                     user?.uid ? <button onClick={handleSignOut} className='btn md:hidden'>Sign Out</button> : <Link className='btn md:hidden' to='/login'>Sign In</Link>
@@ -74,8 +86,8 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end z-20">
                         <label tabIndex={0}><div className='w-8 h-8 border-[1px] p-1 border-primary rounded-full flex justify-center items-center'>
                             {
-                                user?.photoUrl ?
-                                '' :
+                                user?.photoURL ?
+                                <img src={user.photoURL} alt="" className='w-full h-full rounded-full' /> :
                                 <HiUser className='text-base-content text-3xl' />
                             }
                         </div></label>

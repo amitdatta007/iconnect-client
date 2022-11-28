@@ -9,7 +9,7 @@ import useToken from '../../Hooks/useToken';
 
 const Signup = () => {
     const { register, handleSubmit } = useForm();
-    const { createUser, googleLogin, updateUser } = useContext(AuthContext);
+    const { createUser, googleLogin, updateUser, updateRole } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const [userEmail, setUserEmail] = useState('');
     const [accType, setAccType] = useState('buyer')
@@ -73,6 +73,8 @@ const Signup = () => {
         const acc = e.target.value;
         setAccType(acc);
     };
+
+    updateRole();
 
     return (
         <div className='flex justify-center items-center'>

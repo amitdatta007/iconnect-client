@@ -9,8 +9,6 @@ const DashboardLayout = () => {
 
     updateRole();
 
-    
-
     return (
         <div>
             <Navbar />
@@ -40,7 +38,7 @@ const DashboardLayout = () => {
                                 <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/allbuyers' >All Buyers</NavLink>
 
 
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>Reported Items</NavLink>
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/reportedProducts'>Reported Items</NavLink>
                             </>
                         }
                         {
@@ -52,7 +50,7 @@ const DashboardLayout = () => {
                         }
                         {
                             userInfo.accountType === "buyer" && <>
-                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/'>My orders</NavLink>
+                                <NavLink className={`${(isActive) => isActive ? 'text-primary' : null} bg-base-200 bg-opacity-50 font-medium rounded-lg px-3 py-2 hover:bg-primary hover:text-base-100`} to='/dashboard/myorders'>My orders</NavLink>
                             </>
                         }
                     </div>
